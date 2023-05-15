@@ -2,6 +2,28 @@ import java.util.TreeMap;
 
 public class schedule {
 
+    public static void main(String[] args) {
+        // Jobs are represented as (start_time, end_time, profit)
+        int[][] jobs = {{1, 6, 6}, {2, 5, 5}, {5, 7, 5}, {6, 8, 3}};
+        
+        int maxProfit = jobScheduling(jobs);
+
+        System.out.println("Maximum profit: " + maxProfit);
+    }
+
+    public static void jobsIteration(int[][] jobs, TreeMap<Integer, Integer> dp) {
+        // Iterate through each job
+        for (int[] job : jobs) {
+            // Adding the job's profit to the maximum profit achieved by completing previous jobs with earlier deadlines.
+            int current_profit = job[2] + dp.floorEntry(job[0]).getValue();
+            // Check if the current profit is greater than the maximum profit achieved so far
+            if (current_profit > dp.lastEntry().getValue()) {
+                // If yes, then add the current profit to the dp
+                dp.put(job[1], current_profit);
+            }
+        }
+    }
+
     public static int jobScheduling(int[][] jobs) {
         // using merge sort to sort the jobs by end time
         sortJobsByFinishTime(jobs, 0, jobs.length - 1);
