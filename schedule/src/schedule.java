@@ -28,9 +28,12 @@ public class schedule {
         // using merge sort to sort the jobs by end time
         sortJobsByFinishTime(jobs, 0, jobs.length - 1);
 
+        // TreeMap to store the maximum profit
         TreeMap<Integer, Integer> dp = new TreeMap<>();
+        // no job selected so initial value is 0
         dp.put(0, 0);
 
+        // iterating over each job to calculate the max profit
         jobsIteration(jobs, dp);
 
         // returning the last value for max profit which is the highest value
