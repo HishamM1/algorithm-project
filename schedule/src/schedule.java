@@ -2,6 +2,19 @@ import java.util.TreeMap;
 
 public class schedule {
 
+    public static int jobScheduling(int[][] jobs) {
+        // using merge sort to sort the jobs by end time
+        sortJobsByFinishTime(jobs, 0, jobs.length - 1);
+
+        TreeMap<Integer, Integer> dp = new TreeMap<>();
+        dp.put(0, 0);
+
+        jobsIteration(jobs, dp);
+
+        // returning the last value for max profit which is the highest value
+        return dp.lastEntry().getValue();
+    }
+
 
     public static void sortJobsByFinishTime(int[][] jobs, int start, int end) {
         if (start < end) {
